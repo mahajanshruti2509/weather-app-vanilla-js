@@ -19,21 +19,40 @@ function getResults(query) {
 }
 
 function displayResults(weather) {
-  let city = document.querySelector('.location .city');
-  city.innerText = `${weather.name}, ${weather.sys.country}`;
+  toggleVisibility(weather.cod);
+  if(weather.cod == 200) {
+    let city = document.querySelector('.location .city')
+    city.innerText = `${weather.name}, ${weather.sys.country}`;
 
-  let now = new Date()
-  let date = document.querySelector('.location .date');
-  date.innerText = dateBuilder(now);
+    let now = new Date()
+    let date = document.querySelector('.location .date');
+    date.innerText = dateBuilder(now);
 
-  let temp = document.querySelector('.current .temp');
-  temp.innerHTML = `${Math.round(weather.main.temp)}<span>°C</span>`;
+    let temp = document.querySelector('.current .temp');
+    temp.innerHTML = `${Math.round(weather.main.temp)}<span>°C</span>`;
 
-  let weatherText = document.querySelector('.current .weather');
-  weatherText.innerHTML =weather.weather[0].main;
+    let weatherText = document.querySelector('.current .weather');
+    weatherText.innerHTML =weather.weather[0].main;
 
-  let hiLow =  document.querySelector('.hi-low');
-  hiLow.innerHTML = `${weather.main.temp_min}°C / ${weather.main.temp_max}°C`;
+    let hiLow =  document.querySelector('.hi-low');
+    hiLow.innerHTML = `${weather.main.temp_min}°C / ${weather.main.temp_max}°C`;
+  }
+}
+
+function toggleVisibility (status) {
+  let location = document.querySelector('.location');
+  let current = document.querySelector('.current');
+  let message = document.querySelector('.no-city-found .message');
+  if(status == 200) {
+    location.style.display = 'block';
+    current.style.display = 'block';
+    message.style.display = 'none';
+  } else {
+    location.style.display = 'none';
+    current.style.display = 'none';
+    message.style.display = 'block';
+    message.innerText = "City Not Found!"
+  }
 }
 
 function dateBuilder(d) {

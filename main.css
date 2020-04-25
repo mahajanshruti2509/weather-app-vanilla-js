@@ -54,9 +54,16 @@ main{
   text-align: center;
 }
 
-.location .city {
+.location .city  {
   color: #FFF;
   font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.no-city-found .message  {
+  color:#FFF;
+  font-size: 40px;
   font-weight: 500;
   margin-bottom: 5px;
 }
